@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180A73951F955B7200CF66AF /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A73941F955B7200CF66AF /* Video.swift */; };
 		1FD852511F901618005BDD9D /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD852501F901618005BDD9D /* MenuBar.swift */; };
 		1FE2C4F11F8E996700C00BC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2C4F01F8E996700C00BC9 /* AppDelegate.swift */; };
 		1FE2C4F31F8E996700C00BC9 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2C4F21F8E996700C00BC9 /* HomeController.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		180A73941F955B7200CF66AF /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		1FD852501F901618005BDD9D /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		1FE2C4ED1F8E996700C00BC9 /* youtube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youtube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE2C4F01F8E996700C00BC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180A73931F955B5900CF66AF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				180A73941F955B7200CF66AF /* Video.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		1FE2C4E41F8E996700C00BC9 = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +113,7 @@
 		1FE2C4EF1F8E996700C00BC9 /* youtube */ = {
 			isa = PBXGroup;
 			children = (
+				180A73931F955B5900CF66AF /* Model */,
 				1FE2C5241F8ED0E800C00BC9 /* Controller */,
 				1FE2C5211F8ED0A200C00BC9 /* View */,
 				1FE2C51E1F8ED03000C00BC9 /* Helpers */,
@@ -293,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FE2C4F31F8E996700C00BC9 /* HomeController.swift in Sources */,
+				180A73951F955B7200CF66AF /* Video.swift in Sources */,
 				1FE2C5231F8ED0B600C00BC9 /* VideoCell.swift in Sources */,
 				1FE2C5201F8ED03E00C00BC9 /* Extensions.swift in Sources */,
 				1FE2C4F11F8E996700C00BC9 /* AppDelegate.swift in Sources */,
@@ -465,6 +477,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47WSL4YEVG;
 				INFOPLIST_FILE = youtube/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thelastclown.youtube;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -480,6 +493,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47WSL4YEVG;
 				INFOPLIST_FILE = youtube/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thelastclown.youtube;
 				PRODUCT_NAME = "$(TARGET_NAME)";

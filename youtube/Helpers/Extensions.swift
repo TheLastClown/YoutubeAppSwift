@@ -29,4 +29,17 @@ extension UIView {
     }
 }
 
+extension UIImage {
+    
+    static func scaleImageToSize(img: UIImage, size: CGSize) -> UIImage{
+        
+        UIGraphicsBeginImageContext(size)
+        img.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
+        let scaledImg = UIGraphicsGetImageFromCurrentImageContext()
+        
+        return scaledImg!
+    }
+}
+
+
  

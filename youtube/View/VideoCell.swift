@@ -9,6 +9,8 @@
 import UIKit
 
 class BaseCell : UICollectionViewCell{
+    
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         setupViews()
@@ -26,6 +28,46 @@ class BaseCell : UICollectionViewCell{
 
 
 class VideoCell : BaseCell{
+    
+    var video : Video? {
+        didSet{
+            titleLabel.text = video?.title
+            thumbnailImageView.image = UIImage(named: (video?.thumbnailImage)!)
+            
+            profileImageUserView.image = UIImage(named: (video?.channel?.profileImage)!)
+            
+            
+            
+            if let channelName = video?.channel?.channelName,
+                let numberOfViews = video?.numberOfViews {
+                
+            
+                let subTitleText = "\(channelName) - \(formatCurrency(value: numberOfViews as! Double)) - 2 years ago"
+                subTitleLabel.text = subTitleText
+            }
+            
+            //Measeure title rect
+            if let title = video?.title{
+                let size = CGSize(width: frame.width - 16 - 44 - 8 - 16, height: 1000)
+                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+
+                let estimateRect = NSString(string: title).boundingRect(with: size, options: options, attributes: nil, context: nil)
+                
+                if estimateRect.size.height > 20 {
+                    titleHeightConstraint?.constant = 44
+                } else {
+                    titleHeightConstraint?.constant = 20
+                }
+            }
+        }
+    }
+    
+    func formatCurrency(value: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let result = formatter.string(from: value as NSNumber)
+        return result!
+    }
     
     let separatorView : UIView = {
         let view = UIView()
@@ -57,6 +99,7 @@ class VideoCell : BaseCell{
         //        label.backgroundColor = UIColor.purple
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Juan Vargas - YouTube Swift3 APP"
+        label.numberOfLines = 2
         return label
     }()
     
@@ -70,6 +113,8 @@ class VideoCell : BaseCell{
         
         return label
     }()
+    
+    var titleHeightConstraint : NSLayoutConstraint?
     
     override func setupViews(){
         addSubview(thumbnailImageView)
@@ -102,7 +147,10 @@ class VideoCell : BaseCell{
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         
         //Height Constraint
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20))
+        
+        titleHeightConstraint = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 44)
+        
+        addConstraint(titleHeightConstraint!)
         
         
         //Top Constraint

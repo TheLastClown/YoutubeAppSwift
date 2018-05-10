@@ -9,6 +9,29 @@
 import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    var videos : [Video] = {
+        
+        var juanpitoChannel = Channel()
+        juanpitoChannel.channelName = "JuanPito200"
+        juanpitoChannel.profileImage = "juanpito200"
+        
+        var blankSpaceVideo = Video()
+        blankSpaceVideo.title = "Taylor Swift - Blank Space"
+        blankSpaceVideo.thumbnailImage = "thumbnail1"
+        blankSpaceVideo.channel = juanpitoChannel
+        blankSpaceVideo.numberOfViews = 1123899123
+        
+        var invisibleVideo = Video()
+        invisibleVideo.title = "Linking Park - ALEXANDRA TE AMO MUCHO"
+        invisibleVideo.thumbnailImage = "invisible"
+        invisibleVideo.channel = juanpitoChannel
+        blankSpaceVideo.numberOfViews = 15123232123
+
+        
+        return [blankSpaceVideo,invisibleVideo]
+        
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +47,42 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         titleLabel.text = "Home"
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.systemFont(ofSize: 20)
+        
         navigationItem.titleView = titleLabel
         navigationController?.navigationBar.isTranslucent = false
         
-        
         setupMenuBar()
+        setupNavBarButtons()
+
+    }
+    
+   func scaleImageToSize(img: UIImage, size: CGSize) -> UIImage{
+        
+        UIGraphicsBeginImageContext(size)
+        img.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
+        let scaledImg = UIGraphicsGetImageFromCurrentImageContext()
+        
+        return scaledImg!
+    }
+    
+    func setupNavBarButtons(){
+        let searchImage = scaleImageToSize(img: UIImage(named:"search")!, size: CGSize(width: 25, height: 25))
+        
+        let searchButtonItem = UIBarButtonItem(image: searchImage, style: .done, target: self, action: #selector(handleSearch))
+        
+        let menuImage = scaleImageToSize(img: UIImage(named:"nav_more")!, size: CGSize(width: 25, height: 25))
+        
+        let menuButtonItem = UIBarButtonItem(image: menuImage, style: .plain, target: self, action: #selector(handleOptions))
+       
+        navigationItem.rightBarButtonItems = [menuButtonItem, searchButtonItem]
+    }
+    
+    @objc func handleSearch(){
+        print(123)
+    }
+    
+    @objc func handleOptions(){
+        print(321)
     }
     
     let menuBar : MenuBar = {
@@ -44,12 +98,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return videos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
         
+        cell.video = videos[indexPath.item]
         return cell
     }
     

@@ -21,7 +21,7 @@ class MenuBar : UIView, UICollectionViewDataSource, UICollectionViewDelegate, UI
     }()
     
     let cellId = "cellId"
-    
+    let imageNames = ["home", "trending", "subscription", "account"]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +32,9 @@ class MenuBar : UIView, UICollectionViewDataSource, UICollectionViewDelegate, UI
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-       
+        
+        let selectedIndexPath = IndexPath(item: 0, section: 0)
+        collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -40,7 +42,11 @@ class MenuBar : UIView, UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath )
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath ) as! MenuCell
+        
+        cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate )
+        cell.tintColor = UIColor.rgb(red: 91, green: 14, blue: 13, alpha: 1 )
+    
         
         return cell
 
@@ -62,14 +68,28 @@ class MenuBar : UIView, UICollectionViewDataSource, UICollectionViewDelegate, UI
 
 class MenuCell : BaseCell{
     
-    let imageView =  UIImageView {
-       let iv = UIImageView()
-        iv.image = UIImage
+    let imageView : UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "home")?.withRenderingMode(.alwaysOriginal)
+        iv.tintColor = UIColor.rgb(red: 91, green: 14, blue: 13, alpha: 1 )
+        return iv
     }()
+    
+    override var isSelected: Bool {
+        didSet{
+            imageView.tintColor = isSelected ? UIColor.white : UIColor.rgb(red: 91, green: 14, blue: 13, alpha: 1 )
+        }
+    }
     
     override func setupViews() {
         super.setupViews()
-        backgroundColor = UIColor.yellow
+        
+        addSubview(imageView)
+        addConstraintsWithFormat(format: "H:[v0(28)]", views: imageView)
+        addConstraintsWithFormat(format: "V:[v0(28)]", views: imageView)
+        
+        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
         
     }
     
